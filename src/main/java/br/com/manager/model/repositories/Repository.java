@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 public class Repository<E> {
 
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("user-manager");
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager");
 	private EntityManager em; 
 	private Class<E> classe;
 	
@@ -79,11 +79,6 @@ public class Repository<E> {
 		return lista.isEmpty() ? null : lista.get(0);
  	}
 	
-//	public E update(E entity, Object... params) {
-//		abrirT().findByID(params);
-//		return em.merge(entity);
-//		
-//	}
 	
 	public void fechar() {
 		em.close();

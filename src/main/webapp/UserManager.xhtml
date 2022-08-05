@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="styles.css" />
+
+	<title>User Manager</title>
+</h:head>
+<h:body>
+	<!-- HEADER -->
+	<div id="header" class="center">
+		<h:graphicImage id="logo" library="images" name="logoGU.png" />
+	</div>
+	<!-- FORMULARIO -->
+	<div class="formulario center">
+		<h:form id="form">
+			<h:panelGrid>
+				<p:outputLabel value="Id:" />
+				<p:inputText value="#{userController.user.id}" />
+
+				<p:outputLabel value="Nome:" />
+				<p:inputText value="#{userController.user.nome}" />
+
+				<p:outputLabel value="Gênero:" />
+				<p:inputText value="#{userController.user.genero}" />
+
+				<p:outputLabel value="Email:" />
+				<p:inputText value="#{userController.user.email}" />
+
+				<p:outputLabel value="Telefone:" />
+				<p:inputText value="#{userController.user.telefone}" />
+
+				<p:outputLabel value="Cidade:" />
+				<p:inputText value="#{userController.user.cidade}" />
+
+				<p:outputLabel value="UF:" />
+				<p:inputText value="#{userController.user.uf}" />
+			</h:panelGrid>
+
+			<h:panelGroup styleClass="center">
+				<p:commandButton id="btn-enviar" value="Cadastrar"
+					action="#{userController.saveUser}" update="table" />
+			</h:panelGroup>
+		</h:form>
+	</div>
+	<!-- TABELA -->
+	<h:panelGroup styleClass="center">
+		<p:dataTable id="table" value="#{userController.users}" var="e" border="1">
+			<p:column headerText="Id">#{e.id}</p:column>
+			<p:column headerText="Nome">#{e.nome}</p:column>
+			<p:column headerText="Gênero">#{e.genero}</p:column>
+			<p:column headerText="Email">#{e.email}</p:column>
+			<p:column headerText="Telefone">#{e.telefone}</p:column>
+			<p:column headerText="Cidade">#{e.cidade}</p:column>
+			<p:column headerText="UF">#{e.uf}</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+</h:body>
+</html>
