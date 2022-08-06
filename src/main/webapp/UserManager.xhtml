@@ -19,7 +19,7 @@
 	<!-- FORMULARIO -->
 	<div class="formulario center">
 		<h:form id="form">
-			<h:panelGrid>
+			<h:panelGrid columns="2">
 				<p:outputLabel value="Id:" />
 				<p:inputText value="#{userController.user.id}" />
 
@@ -44,13 +44,18 @@
 
 			<h:panelGroup styleClass="center">
 				<p:commandButton id="btn-enviar" value="Cadastrar"
-					action="#{userController.saveUser}" update="table" />
+					action="#{userController.saveUser}" update="form table" />
+				<p:commandButton id="btn-alterar" value="Alterar"
+					action="#{userController.update}" update="form table" />
+				<p:commandButton id="btn-deletar" value="Deletar"
+					action="#{userController.delete}" update="form table" />
 			</h:panelGroup>
 		</h:form>
 	</div>
 	<!-- TABELA -->
 	<h:panelGroup styleClass="center">
-		<p:dataTable id="table" value="#{userController.users}" var="e" border="1">
+		<p:dataTable id="table" value="#{userController.users}" var="e"
+			border="1">
 			<p:column headerText="Id">#{e.id}</p:column>
 			<p:column headerText="Nome">#{e.nome}</p:column>
 			<p:column headerText="Gênero">#{e.genero}</p:column>

@@ -41,10 +41,10 @@ public class User implements Serializable{
 		
 	}
 
-	public User(Integer id, String nome, String email, String telefone, String cidade, String uf,
+	public User(String id, String nome, String email, String telefone, String cidade, String uf,
 			String genero) {
 		
-		this.id = id;
+		this.id = Integer.parseInt(id);
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
