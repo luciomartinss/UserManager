@@ -14,7 +14,7 @@
 <h:body>
 	<!-- HEADER -->
 	<div id="header" class="center">
-		<h:graphicImage id="logo" library="images" name="logoGU.png" />
+		<h:graphicImage id="logo" library="images" name="manager.png" />
 	</div>
 	<!-- FORMULARIO -->
 	<div class="formulario center">
@@ -26,11 +26,11 @@
 				<p:outputLabel value="Nome:" />
 				<p:inputText value="#{userController.user.nome}" />
 
-				<p:outputLabel value="Gênero:" />
-				<p:inputText value="#{userController.user.genero}" />
-
 				<p:outputLabel value="Email:" />
 				<p:inputText value="#{userController.user.email}" />
+
+				<p:outputLabel value="Gênero:" />
+				<p:inputText value="#{userController.user.genero}" />
 
 				<p:outputLabel value="Telefone:" />
 				<p:inputText value="#{userController.user.telefone}" />
