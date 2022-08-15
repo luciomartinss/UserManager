@@ -54,6 +54,7 @@
 	</div>
 	<!-- TABELA -->
 	<h:panelGroup styleClass="center">
+		<h:messages></h:messages>
 		<p:dataTable id="table" value="#{userController.users}" var="e"
 			border="1">
 			<p:column headerText="Id">#{e.id}</p:column>

@@ -1,13 +1,16 @@
 package br.com.manager.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.manager.model.DaoException;
 import br.com.manager.model.entities.User;
 import br.com.manager.model.services.UserService;
 
@@ -20,66 +23,56 @@ public class UserController implements Serializable {
 	@Inject
 	private User user;
 
-	private UserService service = new UserService();
+	@EJB
+	private UserService service;
 
-	private List<User> users = new ArrayList<>(service.findAll());
+	private List<User> users;
 
-	public String saveUser() {
+	public UserController() {
+		this.findAll();
+	}
 
-		this.service.saveAtomic(user);
-		System.out.println("Usuario " + user.getNome() + " adicionado com sucesso!");
-		user = new User();
-		return null;
+	public void findAll() {
+		try {
+			this.users = service.findAll();
+		} catch (DaoException e) {
+			addMessage("Falha ao listar", FacesMessage.SEVERITY_WARN);
+		}
+	}
+
+	public void saveUser() {
+		try {
+			this.service.save(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			addMessage("Falha ao salvar: "+ e.getMessage(), FacesMessage.SEVERITY_WARN);
+		}
 	}
 
 	public void update() {
-		if (user.getId() != null) {
-
-			this.service.abrirT();
-			User findId = service.findByID(user.getId());
-			this.service.update(findId);
-
-			{ /* Verificação */
-				if (user.getNome() != "") {
-					findId.setNome(user.getNome());
-				}
-				if (user.getGenero() != "") {
-					findId.setGenero(user.getGenero());
-				}
-				if (user.getEmail() != "") {
-					findId.setEmail(user.getEmail());
-				}
-				if (user.getTelefone() != "") {
-					findId.setTelefone(user.getTelefone());
-				}
-				if (user.getCidade() != "") {
-					findId.setCidade(user.getCidade());
-				}
-				if (user.getUf() != "") {
-					findId.setUf(user.getUf());
-				}
-			}
-
-			this.service.fecharT();
-			System.out.println("Usuario: " + user.getId() + " - " + user.getNome() + ", alterado com sucesso!");
-			user = new User();
-		} else {
-			System.out.println("Obrigatório informar Id do Usuario para realizar alterarções");
+		try {
+			this.service.update(user);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			addMessage("Falha ao listar", FacesMessage.SEVERITY_WARN);
 		}
 	}
 
 	public void delete() {
-		if (user.getId() != null) {
-			this.service.abrirT();
-			User findId = service.findByID(user.getId());
-			this.service.delete(findId);
-			this.service.fecharT();
-			System.out.println("Usuario " + findId.getId() + " - " + findId.getNome() + ", deletado com sucesso!");
-			user = new User();
-		} else {
-			System.out.println("Obrigatório informar Id do Usuario para deletar");
+		try {
+			this.service.delete(user);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			addMessage("Falha ao listar", FacesMessage.SEVERITY_WARN);
 		}
 	}
+	
+	private void addMessage(String msg , FacesMessage.Severity severity) {
+		FacesContext.getCurrentInstance()
+		.addMessage("Mensagem",  
+				new FacesMessage(severity, msg, "Mensagem do Sistema"));
+	}
+	
 
 	public List<User> getUsers() {
 		return users;

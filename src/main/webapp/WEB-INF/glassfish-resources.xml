@@ -1,0 +1,22 @@
+<!DOCTYPE resources PUBLIC
+        "-//GlassFish.org//DTD GlassFish Application Server 3.1
+        Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+        <jdbc-connection-pool connection-creation-retry-interval-in-seconds="30"
+                              connection-validation-method="auto-commit"
+                              datasource-classname="com.mysql.cj.jdbc.MysqlDataSource"
+                              wrap-jdbc-objects="false"
+                              res-type="javax.sql.DataSource"
+                              name="managerPool"
+                              is-connection-validation-required="true"
+                              connection-creation-retry-attempts="10"
+                              validate-atmost-once-period-in-seconds="60">
+            <property name="User" value="root"/>
+            <property name="Password" value="102030as"/>
+            <property name="URL" value="jdbc:mysql://localhost:3306/manager?useSSL=false"/>
+            <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="characterEncoding" value="utf-8"/>
+        </jdbc-connection-pool>
+        <jdbc-resource enabled="true" jndi-name="jdbc/managerDS" object-type="user" pool-name="managerPool"/>
+    </resources>
